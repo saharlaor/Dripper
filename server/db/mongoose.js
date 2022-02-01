@@ -12,5 +12,3 @@ mongoose.connect(URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
-// module.exports.mongoClient = { client };
