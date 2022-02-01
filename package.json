@@ -2,11 +2,11 @@
   "name": "dripper",
   "version": "1.0.0",
   "description": "Water tracker using MERN development stack",
-  "main": "index.js",
+  "main": "./server/index.js",
   "scripts": {
-    "start": "node ./server.js",
+    "start": "node ./server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon ./server.js",
+    "server": "nodemon ./server/index.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
@@ -24,5 +24,8 @@
   "homepage": "https://github.com/saharlaor/Dripper#readme",
   "devDependencies": {
     "concurrently": "^7.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^15.0.0"
   }
 }
