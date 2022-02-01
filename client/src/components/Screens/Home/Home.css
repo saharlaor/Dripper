@@ -1,4 +1,14 @@
 .Home {
   display: inline-block;
+  height: 100%;
+  width: 100%;
 }
-/*# sourceMappingURL=a.css.map */
+
+.Home .ant-layout {
+  height: 100%;
+}
+
+.Home .ant-layout header {
+  color: #ddd;
+}
+/*# sourceMappingURL=Home.css.map */
