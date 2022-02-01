@@ -2,6 +2,7 @@ import React from "react";
 import "./Home.css";
 import { Layout } from "antd";
 import ProgressBar from "./ProgressBar/ProgressBar";
+import Graph from "./Graph/Graph";
 
 const { Header, Footer, Content } = Layout;
 
@@ -12,6 +13,7 @@ function Home() {
         <Header>Header</Header>
         <Content>
           <ProgressBar />
+          <Graph />
         </Content>
         <Footer>Footer</Footer>
       </Layout>
