@@ -11,4 +11,8 @@
 .Home .ant-layout header {
   color: #ddd;
 }
+
+.Home .ant-layout main {
+  padding: 3rem 2rem;
+}
 /*# sourceMappingURL=Home.css.map */
