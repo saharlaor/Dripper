@@ -3,6 +3,7 @@ import "./Home.css";
 import { Layout } from "antd";
 import ProgressBar from "./ProgressBar/ProgressBar";
 import Graph from "./Graph/Graph";
+import Drink from "./Drink/Drink";
 
 const { Header, Footer, Content } = Layout;
 
@@ -14,6 +15,7 @@ function Home() {
         <Content>
           <ProgressBar />
           <Graph />
+          <Drink />
         </Content>
         <Footer>Footer</Footer>
       </Layout>

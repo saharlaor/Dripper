@@ -27,7 +27,7 @@ function Graph() {
           },
         ]}
         type="bar"
-        height="100%"
+        height="92.5%"
       />
     </div>
   );

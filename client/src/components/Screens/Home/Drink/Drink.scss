@@ -1,0 +1,15 @@
+.Drink {
+  .Drink__user-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    height: 250px;
+    width: fit-content;
+    margin: auto;
+    .inputs {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
