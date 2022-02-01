@@ -24,5 +24,6 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  height: 100%;
 }
 /*# sourceMappingURL=Drink.css.map */

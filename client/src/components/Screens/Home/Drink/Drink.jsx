@@ -1,4 +1,4 @@
-import { Slider, InputNumber, Row, Col, Divider } from "antd";
+import { Slider, InputNumber, Divider } from "antd";
 import React, { useState } from "react";
 import { color } from "d3-color";
 import { interpolateRgb } from "d3-interpolate";
