@@ -1,5 +1,6 @@
-import { Slider, InputNumber, Divider } from "antd";
 import React, { useState } from "react";
+import { Button, Divider, InputNumber, Slider } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import { color } from "d3-color";
 import { interpolateRgb } from "d3-interpolate";
 import LiquidFillGauge from "react-liquid-gauge";
@@ -8,8 +9,8 @@ import "./Drink.css";
 const START_COLOR = "#8df";
 const END_COLOR = "#48d";
 
-function Drink() {
-  const [value, setValue] = useState(50);
+function Drink({ drinkHandler }) {
+  const [value, setValue] = useState(0);
 
   const radius = 125;
   const interpolate = interpolateRgb(START_COLOR, END_COLOR);
@@ -43,6 +44,11 @@ function Drink() {
     setValue(val / 10);
   };
 
+  const handleDrinkClick = () => {
+    drinkHandler(value * 10);
+    setValue(0);
+  };
+
   return (
     <div className="Drink">
       <Divider orientation="left">Add Water</Divider>
@@ -52,7 +58,7 @@ function Drink() {
           width={radius * 2}
           height={radius * 2}
           value={value}
-          percent="Milliliters"
+          percent=" Milliliters"
           textSize={0.75}
           textOffsetX={0}
           textOffsetY={0}
@@ -114,6 +120,15 @@ function Drink() {
           />
         </div>
       </div>
+      <Button
+        type="primary"
+        shape="round"
+        icon={<PlusOutlined />}
+        size="large"
+        onClick={handleDrinkClick}
+        disabled={value === 0}>
+        Drink
+      </Button>
     </div>
   );
 }

@@ -8,7 +8,11 @@ import Drink from "./Drink/Drink";
 const { Header, Footer, Content } = Layout;
 
 function Home() {
-  const [dailyProgress, setDailyProgress] = useState(150);
+  const [dailyProgress, setDailyProgress] = useState(0);
+
+  const handleProgressIncrease = (amount) => {
+    setDailyProgress((prev) => prev + Math.round((amount * 100) / 3000));
+  };
 
   return (
     <div className="Home">
@@ -17,9 +21,9 @@ function Home() {
         <Content>
           <ProgressBar progressPercentage={dailyProgress} />
           <Graph />
-          <Drink />
+          <Drink drinkHandler={handleProgressIncrease} />
         </Content>
-        <Footer>Footer</Footer>
+        {/* <Footer>Footer</Footer> */}
       </Layout>
     </div>
   );

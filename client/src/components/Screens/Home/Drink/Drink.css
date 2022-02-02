@@ -1,3 +1,7 @@
+.Drink {
+  text-align: center;
+}
+
 .Drink .Drink__user-input {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -14,6 +18,7 @@
   width: -moz-fit-content;
   width: fit-content;
   margin: auto;
+  margin-bottom: 2rem;
 }
 
 .Drink .Drink__user-input .inputs {
@@ -24,6 +29,13 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 100%;
+}
+
+.Drink .Drink__user-input .inputs .ant-input-number {
+  margin-bottom: 0;
 }
 /*# sourceMappingURL=Drink.css.map */
