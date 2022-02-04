@@ -20,7 +20,16 @@
   color: #ddd;
 }
 
-.Home .ant-layout header img {
+.Home .ant-layout header > * {
+  height: 100%;
+}
+
+.Home .ant-layout header > *.ant-btn-primary {
+  border-color: #001529;
+  background: #001529;
+}
+
+.Home .ant-layout header > * img {
   height: 50%;
 }
 

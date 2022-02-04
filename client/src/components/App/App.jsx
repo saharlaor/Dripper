@@ -50,7 +50,7 @@ function App() {
     // Get the user from the DB, if no user login
     Cookies.set("uid", user.uid, { expires: 1 });
     const getUserData = async () => {
-      if (uid) {
+      if (user) {
         const { data } = await api.get(`users?uid=${user.id}`);
         setUserData(data);
       } else {
