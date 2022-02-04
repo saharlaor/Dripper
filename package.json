@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "dotenv": "^15.0.0",
-    "firebase": "^9.6.5"
+    "firebase": "^9.6.5",
+    "js-cookie": "^3.0.1"
   }
 }
