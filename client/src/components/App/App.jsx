@@ -28,7 +28,7 @@ function App() {
 
   useEffect(() => {
     const cookieUid = Cookies.get("uid");
-    let newUser = true;
+    let isNewUser = true;
     let tempUser = null;
 
     const googleLogin = async () => {
@@ -42,7 +42,6 @@ function App() {
         const {
           user: { uid, displayName, email, photoURL },
         } = await signInWithPopup(authentication, provider);
-        Cookies.set("uid", uid, { expires: 1 });
         tempUser = { uid, name: displayName, email, photoURL };
       } catch (err) {
         console.dir(err);
@@ -50,32 +49,33 @@ function App() {
     };
 
     const login = async () => {
-      // Logged in beforehand
       if (!cookieUid) {
         await googleLogin();
       }
       try {
         const { data } = await api.get(`/users/${cookieUid}`);
-        console.log("Get user data", data);
         tempUser = data;
-        newUser = false;
+        isNewUser = false;
       } catch (err) {
         console.log(err);
       }
 
-      if (newUser) {
-        // try {
-        console.log("tempUser", tempUser);
-        const { data } = await api.post(`/users/`, tempUser);
-        console.log("Create user", data);
-        tempUser = data;
-        // } catch (err) {
-        //   throw Error(err);
-        // }
+      if (isNewUser) {
+        try {
+          const { data } = await api.post(`/users/`, tempUser);
+          tempUser = data;
+        } catch (err) {
+          throw Error(err);
+        }
       } else {
         console.log("tempUser", tempUser);
       }
 
+      tempUser.drinkHistory = (
+        await api.get(`/drinks?userId=${tempUser._id}`)
+      ).data;
+
+      Cookies.set("uid", tempUser.uid, { expires: 1 });
       setUser(tempUser);
       setLoggedIn(true);
     };
