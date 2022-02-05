@@ -2,9 +2,9 @@
 const User = require("../models/User.models");
 
 // GET
-async function getDbUser(authId) {
+async function getDbUser(uid) {
   try {
-    const user = await User.findOne({ authId });
+    const user = await User.findOne({ uid });
     return user;
   } catch (err) {
     console.log("err", err);

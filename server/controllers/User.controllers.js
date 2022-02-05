@@ -45,7 +45,6 @@ async function createUser(req, res) {
   try {
     const { uid, name, email, photoURL } = req.body;
     if (!(uid && name && email && photoURL)) {
-      console.log("req.body", req.body);
       throw {
         code: 400,
         message:
