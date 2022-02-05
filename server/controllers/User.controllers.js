@@ -1,5 +1,9 @@
 // Imports
-const { getDbUser, getDbUsers } = require("../services/User.services");
+const {
+  getDbUser,
+  getDbUsers,
+  createDbUser,
+} = require("../services/User.services");
 
 async function getUser(req, res) {
   const authId = req.params.authId;
@@ -36,4 +40,26 @@ async function getUsers(req, res) {
   }
 }
 
-module.exports = { getUser, getUsers };
+async function createUser(req, res) {
+  try {
+    const { uid, name, email, photoUrl } = req.body;
+    if (!(uid && name && email && photoUrl)) {
+      throw Error({
+        code: 400,
+        message:
+          "Bad Request, Fill The Following Fields: uid, name, email, photoUrl",
+      });
+    }
+
+    const user = createUser({ uid, name, email, photoUrl });
+    if (!user) {
+      throw Error({ code: 404, message: "User Not Created" });
+    }
+
+    res.status(201).send(data);
+  } catch ({ code, message }) {
+    res.status(code).send(message);
+  }
+}
+
+module.exports = { getUser, getUsers, createUser };
