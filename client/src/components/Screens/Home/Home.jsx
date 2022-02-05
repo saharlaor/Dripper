@@ -7,17 +7,17 @@ import Graph from "./Graph/Graph";
 import Drink from "./Drink/Drink";
 import "./Home.css";
 
-const { Header, Footer, Content } = Layout;
+const { Header, Content } = Layout;
 
 function Home() {
   const [dailyProgress, setDailyProgress] = useState(0);
   const {
-    user: { uid, displayName, email, photoURL, accessToken },
+    user: { displayName, email, photoURL },
     setUser,
   } = useContext(LoginContext);
 
   const handleLogoutClick = () => {
-    setUser(null);
+    setUser({});
   };
 
   const handleProgressIncrease = (amount) => {
@@ -30,12 +30,12 @@ function Home() {
         <Header>
           <span>Welcome, {displayName}</span>
           <span>
-            {email} <img src={photoURL} alt={`${displayName}'s photo`} />
+            {email} <img src={photoURL} alt={displayName} />
           </span>
           <Button
             type="primary"
             icon={<LogoutOutlined />}
-            onclick={handleLogoutClick}>
+            onClick={handleLogoutClick}>
             Logout
           </Button>
         </Header>
@@ -44,7 +44,6 @@ function Home() {
           <Graph />
           <Drink drinkHandler={handleProgressIncrease} />
         </Content>
-        {/* <Footer>Footer</Footer> */}
       </Layout>
     </div>
   );

@@ -20,7 +20,7 @@ function Login() {
 
       navigator("/");
     })();
-  }, []);
+  }, [navigator]);
   return <div></div>;
 }
 

@@ -43,8 +43,8 @@ function App() {
       }
     };
 
-    login();
-  }, []);
+    !user.uid && login();
+  }, [user]);
 
   useEffect(() => {
     // Get the user from the DB, if no user login
@@ -54,7 +54,7 @@ function App() {
         const { data } = await api.get(`users?uid=${user.id}`);
         setUserData(data);
       } else {
-        setUserData(null);
+        setUserData({});
       }
     };
     getUserData();
