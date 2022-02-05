@@ -7,7 +7,8 @@ async function getDbUser(authId) {
     const user = await User.findOne({ authId });
     return user;
   } catch (err) {
-    throw Error({ code: 500, message: "Error while fetching user from DB" });
+    console.log("err", err);
+    throw { code: 500, message: "Error while fetching user from DB" };
   }
 }
 
@@ -16,7 +17,7 @@ async function getDbUsers() {
     const users = await User.find();
     return users;
   } catch (err) {
-    throw Error({ code: 500, message: "Error while fetching user from DB" });
+    throw { code: 500, message: "Error while fetching user from DB" };
   }
 }
 
@@ -30,21 +31,12 @@ async function createDbUser({ uid, name, email, photoUrl }) {
       photoUrl,
       drinkHistory: [],
     });
-    newUser.save((err, data) => {
-      if (err) {
-        throw Error({
-          status: 400,
-          message: `User ${req.params.id} alreadyExists`,
-        });
-      } else {
-        return data;
-      }
-    });
-  } catch ({ code, message }) {
-    throw Error({
-      code: code || 500,
-      message: message || "Error while fetching user from DB",
-    });
+    await newUser.save();
+  } catch (err) {
+    throw {
+      code: 500,
+      message: "Error while creating user from DB",
+    };
   }
 }
 

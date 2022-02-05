@@ -11,7 +11,7 @@ import { authentication } from "../../auth/auth";
 
 // Contexts
 import LoginContext from "../../contexts/LoginContext";
-import UserDataContext from "../../contexts/UserDataContext";
+// import UserDataContext from "../../contexts/UserDataContext";
 
 // Components
 import Home from "../Screens/Home/Home";
@@ -23,10 +23,15 @@ import "./App.css";
 
 function App() {
   const [user, setUser] = useState({});
-  const [userData, setUserData] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
+  // const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    const login = async () => {
+    const cookieUid = Cookies.get("uid");
+    let newUser = true;
+    let tempUser = null;
+
+    const googleLogin = async () => {
       const provider = new GoogleAuthProvider();
 
       provider.setCustomParameters({
@@ -35,45 +40,71 @@ function App() {
 
       try {
         const {
-          user: { uid, displayName, email, photoURL, accessToken },
+          user: { uid, displayName, email, photoURL },
         } = await signInWithPopup(authentication, provider);
-        setUser({ uid, displayName, email, photoURL, accessToken });
+        Cookies.set("uid", uid, { expires: 1 });
+        tempUser = { uid, name: displayName, email, photoURL };
       } catch (err) {
         console.dir(err);
       }
     };
 
-    !user.uid && login();
-  }, [user]);
+    const login = async () => {
+      // Logged in beforehand
+      if (!cookieUid) {
+        await googleLogin();
+      }
+      try {
+        const { data } = await api.get(`/users/${cookieUid}`);
+        console.log("Get user data", data);
+        tempUser = data;
+        newUser = false;
+      } catch (err) {
+        console.log(err);
+      }
+
+      if (newUser) {
+        // try {
+        console.log("tempUser", tempUser);
+        const { data } = await api.post(`/users/`, tempUser);
+        console.log("Create user", data);
+        tempUser = data;
+        // } catch (err) {
+        //   throw Error(err);
+        // }
+      } else {
+        console.log("tempUser", tempUser);
+      }
+
+      setUser(tempUser);
+      setLoggedIn(true);
+    };
+
+    !loggedIn && login();
+  }, [loggedIn]);
 
   useEffect(() => {
-    // Get the user from the DB, if no user login
-    Cookies.set("uid", user.uid, { expires: 1 });
-    const getUserData = async () => {
-      if (user) {
-        const { data } = await api.get(`users?uid=${user.id}`);
-        setUserData(data);
-      } else {
-        setUserData({});
-      }
-    };
-    getUserData();
+    if (!user) {
+      Cookies.remove("uid");
+      setUser({});
+      setLoggedIn(false);
+    }
   }, [user]);
 
   return (
     <div className="App">
-      <UserDataContext.Provider value={{ userData, setUserData }}>
-        <LoginContext.Provider value={{ user, setUser }}>
-          <Router>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
+      {/* <UserDataContext.Provider value={{ userData, setUserData }}> */}
+      <LoginContext.Provider value={{ user, setUser }}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Router>
-        </LoginContext.Provider>
-      </UserDataContext.Provider>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Router>
+      </LoginContext.Provider>
+      {/* </UserDataContext.Provider> */}
     </div>
   );
 }

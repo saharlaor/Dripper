@@ -11,13 +11,11 @@ const { Header, Content } = Layout;
 
 function Home() {
   const [dailyProgress, setDailyProgress] = useState(0);
-  const {
-    user: { displayName, email, photoURL },
-    setUser,
-  } = useContext(LoginContext);
+  const { user, setUser } = useContext(LoginContext);
+  const { name, email, photoURL } = user ? user : {};
 
   const handleLogoutClick = () => {
-    setUser({});
+    setUser(null);
   };
 
   const handleProgressIncrease = (amount) => {
@@ -28,9 +26,9 @@ function Home() {
     <div className="Home">
       <Layout>
         <Header>
-          <span>Welcome, {displayName}</span>
+          <span>Welcome, {name}</span>
           <span>
-            {email} <img src={photoURL} alt={displayName} />
+            {email} <img src={photoURL} alt={name} />
           </span>
           <Button
             type="primary"

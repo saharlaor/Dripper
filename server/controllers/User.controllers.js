@@ -9,12 +9,13 @@ async function getUser(req, res) {
   const authId = req.params.authId;
   try {
     const user = await getDbUser(authId);
+
     // Validation
     if (!user)
-      throw Error({
+      throw {
         code: 404,
         message: `No user found with the id of ${authId}`,
-      });
+      };
 
     // Response
     res.send(user);
@@ -28,10 +29,10 @@ async function getUsers(req, res) {
     const users = await getDbUsers();
     // Validation
     if (!users)
-      throw Error({
+      throw {
         code: 404,
         message: `No users found`,
-      });
+      };
 
     // Response
     res.send(users);
@@ -42,18 +43,20 @@ async function getUsers(req, res) {
 
 async function createUser(req, res) {
   try {
-    const { uid, name, email, photoUrl } = req.body;
-    if (!(uid && name && email && photoUrl)) {
-      throw Error({
+    const { uid, name, email, photoURL } = req.body;
+    if (!(uid && name && email && photoURL)) {
+      console.log("req.body", req.body);
+      throw {
         code: 400,
         message:
-          "Bad Request, Fill The Following Fields: uid, name, email, photoUrl",
-      });
+          "Bad Request, Fill The Following Fields: uid, name, email, photoURL",
+      };
     }
 
-    const user = createUser({ uid, name, email, photoUrl });
+    await createDbUser({ uid, name, email, photoURL });
+    const user = await getDbUser(uid);
     if (!user) {
-      throw Error({ code: 404, message: "User Not Created" });
+      throw { code: 404, message: "User Not Created" };
     }
 
     res.status(201).send(data);

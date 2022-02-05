@@ -1,4 +1,6 @@
 // Imports
+require("dotenv").config();
+require("./db/mongoose");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
