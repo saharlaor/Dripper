@@ -43,6 +43,7 @@ function App() {
           user: { uid, displayName, email, photoURL },
         } = await signInWithPopup(authentication, provider);
         tempUser = { uid, name: displayName, email, photoURL };
+        console.log("tempUser", tempUser);
       } catch (err) {
         console.dir(err);
       }
@@ -53,7 +54,7 @@ function App() {
         await googleLogin();
       }
       try {
-        const { data } = await api.get(`/users/${cookieUid}`);
+        const { data } = await api.get(`/users/${cookieUid || tempUser.uid}`);
         tempUser = data;
         isNewUser = false;
       } catch (err) {
@@ -76,6 +77,7 @@ function App() {
       ).data;
 
       Cookies.set("uid", tempUser.uid, { expires: 1 });
+      console.log("Cookies.uid", Cookies.uid);
       setUser(tempUser);
       setLoggedIn(true);
     };

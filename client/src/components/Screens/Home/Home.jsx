@@ -26,7 +26,8 @@ function Home() {
         return obj;
       }, {});
     console.log("user", user);
-    user.uid &&
+    user &&
+      user.uid &&
       setWeeklyDrinks(
         user.drinkHistory
           .filter(({ timestamp }) => new Date(timestamp) > weekAgo)
