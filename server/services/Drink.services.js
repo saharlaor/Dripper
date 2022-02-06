@@ -30,7 +30,6 @@ async function createDbDrink({ userId, amount }) {
       timestamp: new Date(),
     });
     const retDrink = await newDrink.save();
-    console.log("retDrink", retDrink);
     return retDrink;
   } catch (err) {
     throw {

@@ -6,8 +6,12 @@ import ProgressBar from "./ProgressBar/ProgressBar";
 import Graph from "./Graph/Graph";
 import Drink from "./Drink/Drink";
 import "./Home.css";
+import api from "../../../api/api";
 
 const { Header, Content } = Layout;
+
+// Costants
+const DAY_MILLISECONDS = 24 * 60 * 60 * 1000;
 
 function Home() {
   const [dailyProgress, setDailyProgress] = useState(0);
@@ -16,18 +20,16 @@ function Home() {
   const { name, email, photoURL } = user ? user : {};
 
   useEffect(() => {
-    const dayInMilliseconds = 24 * 60 * 60 * 1000;
-    const weekAgo = new Date(new Date().getTime() - dayInMilliseconds * 7);
+    const weekAgo = new Date(new Date().getTime() - DAY_MILLISECONDS * 7);
     const weekDates = [...Array(7).keys()]
-      .map((num) => new Date(new Date().getTime() - dayInMilliseconds * num))
+      .map((num) => new Date(new Date().getTime() - DAY_MILLISECONDS * num))
       .map((date) => date.toLocaleDateString("en-GB"))
       .reduce((obj, date) => {
         obj[date] = [];
         return obj;
       }, {});
-    console.log("user", user);
-    user &&
-      user.uid &&
+
+    user?.uid &&
       setWeeklyDrinks(
         user.drinkHistory
           .filter(({ timestamp }) => new Date(timestamp) > weekAgo)
@@ -46,7 +48,15 @@ function Home() {
     setUser(null);
   };
 
-  const handleProgressIncrease = (amount) => {
+  const handleProgressIncrease = async (amount) => {
+    const { data: drink } = await api.post("/drinks/", {
+      userId: user._id,
+      amount,
+    });
+    await api.put(`/users/${user._id}`, { drinkId: drink._id });
+    setUser((prev) => {
+      return { ...prev, drinkHistory: [...prev.drinkHistory, drink] };
+    });
     setDailyProgress((prev) => prev + Math.round((amount * 100) / 3000));
   };
 

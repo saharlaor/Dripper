@@ -3,6 +3,7 @@ const {
   getDbUser,
   getDbUsers,
   createDbUser,
+  addDbUserDrink,
 } = require("../services/User.services");
 
 async function getUser(req, res) {
@@ -64,4 +65,26 @@ async function createUser(req, res) {
   }
 }
 
-module.exports = { getUser, getUsers, createUser };
+async function addUserDrink(req, res) {
+  try {
+    const _id = req.params.id;
+    const drinkId = req.body.drinkId;
+    if (!(_id && drinkId)) {
+      throw {
+        code: 400,
+        message: "Bad Request, Fill The Following Fields: _id, drinkId",
+      };
+    }
+
+    const user = await addDbUserDrink({ _id, drinkId });
+    if (!user) {
+      throw { code: 400, message: "Drink Not Appended to drinkHistory" };
+    }
+
+    res.status(201).send(user);
+  } catch ({ code, message }) {
+    res.status(code).send(message);
+  }
+}
+
+module.exports = { getUser, getUsers, createUser, addUserDrink };

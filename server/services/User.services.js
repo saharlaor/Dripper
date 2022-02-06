@@ -40,4 +40,18 @@ async function createDbUser({ uid, name, email, photoUrl }) {
   }
 }
 
-module.exports = { getDbUser, getDbUsers, createDbUser };
+// PUT
+async function addDbUserDrink({ _id, drinkId }) {
+  try {
+    const user = await User.findOne({ _id });
+    user.drinkHistory.push(drinkId);
+    return user;
+  } catch (err) {
+    throw {
+      code: 500,
+      message: "Error while adding drink to user",
+    };
+  }
+}
+
+module.exports = { getDbUser, getDbUsers, createDbUser, addDbUserDrink };
