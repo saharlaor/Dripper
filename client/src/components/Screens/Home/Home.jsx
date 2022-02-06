@@ -20,6 +20,18 @@ function Home() {
   const { name, email, photoURL } = user ? user : {};
 
   useEffect(() => {
+    const today = new Date().toLocaleDateString("en-GB");
+    setDailyProgress(
+      Math.round(
+        weeklyDrinks[today]?.reduce(
+          (acc, { amount }) => acc + (amount * 100) / 3000,
+          0
+        )
+      )
+    );
+  }, [weeklyDrinks]);
+
+  useEffect(() => {
     const weekAgo = new Date(new Date().getTime() - DAY_MILLISECONDS * 7);
     const weekDates = [...Array(7).keys()]
       .map((num) => new Date(new Date().getTime() - DAY_MILLISECONDS * num))
@@ -57,7 +69,7 @@ function Home() {
     setUser((prev) => {
       return { ...prev, drinkHistory: [...prev.drinkHistory, drink] };
     });
-    setDailyProgress((prev) => prev + Math.round((amount * 100) / 3000));
+    // setDailyProgress((prev) => prev + Math.round((amount * 100) / 3000));
   };
 
   return (
