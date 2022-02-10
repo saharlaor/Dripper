@@ -1,0 +1,20 @@
+header.ant-layout-header {
+  display: flex;
+  justify-content: space-around;
+  color: #ddd;
+  font-weight: 500;
+  .ant-btn-primary,
+  a {
+    height: 100%;
+    color: inherit;
+    border-color: #001529;
+    background: #001529;
+    font-weight: inherit;
+  }
+  & > * {
+    height: 100%;
+    img {
+      height: 50%;
+    }
+  }
+}

@@ -1,4 +1,9 @@
 .App {
   height: 100%;
 }
+
+.App .ant-layout {
+  height: 100%;
+  min-height: 100vh;
+}
 /*# sourceMappingURL=App.css.map */

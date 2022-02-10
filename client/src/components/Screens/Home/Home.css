@@ -3,38 +3,11 @@
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  min-height: 100%;
+  min-height: calc(100vh - 64px);
   width: 100%;
 }
 
-.Home .ant-layout {
-  height: 100%;
-  min-height: 100vh;
-}
-
-.Home .ant-layout header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  color: #ddd;
-}
-
-.Home .ant-layout header > * {
-  height: 100%;
-}
-
-.Home .ant-layout header > *.ant-btn-primary {
-  border-color: #001529;
-  background: #001529;
-}
-
-.Home .ant-layout header > * img {
-  height: 50%;
-}
-
-.Home .ant-layout main {
+.Home main {
   min-height: -webkit-fit-content;
   min-height: -moz-fit-content;
   min-height: fit-content;
