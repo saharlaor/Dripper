@@ -31,6 +31,9 @@ function Header() {
       <Link to="/">
         <Button type="primary">Home</Button>
       </Link>
+      <Link to="/extension">
+        <Button type="primary">Extension</Button>
+      </Link>
       <span>
         {email} <img src={photoURL} alt={name} />
       </span>

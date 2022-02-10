@@ -18,6 +18,7 @@ import LoginContext from "../../contexts/LoginContext";
 import Home from "../Screens/Home/Home";
 import Login from "../Screens/Login/Login";
 import NotFound from "../Screens/NotFound/NotFound";
+import Extension from "../Screens/Extension/Extension";
 import Header from "../Header/Header";
 
 // CSS
@@ -104,6 +105,7 @@ function App() {
             <Header />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/extension" element={<Extension />} />
               <Route path="/login" element={<Login />} />
 
               <Route path="*" element={<NotFound />} />
