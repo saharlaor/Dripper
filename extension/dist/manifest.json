@@ -7,8 +7,12 @@
     "48": "water_drops_48.png",
     "128": "water_drops_128.png"
   },
-  "permissions": ["<all_urls>"], 
+  "permissions": ["<all_urls>", "notifications", "alarms"], 
   "browser_action": 
   { "default_popup": "popup.html" },
+  "background": {
+    "scripts": ["notifications.js"],
+    "persistent": false
+  },
   "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com https://apis.google.com chrome-extension://effoicgnebggdijebkabjcjinblahfml/*; object-src 'self'"
 }
