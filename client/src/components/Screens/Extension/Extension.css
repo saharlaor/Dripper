@@ -1,4 +1,4 @@
-.Home {
+.Extension {
   display: inline-block;
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -7,7 +7,7 @@
   width: 100%;
 }
 
-.Home main {
+.Extension main {
   min-height: -webkit-fit-content;
   min-height: -moz-fit-content;
   min-height: fit-content;
@@ -16,4 +16,10 @@
   margin: auto;
   padding: 1rem 2rem;
 }
-/*# sourceMappingURL=Home.css.map */
+
+.Extension main > * {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+/*# sourceMappingURL=Extension.css.map */

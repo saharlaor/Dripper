@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { Layout } from "antd";
 import Cookies from "js-cookie";
 
 //Internal
@@ -17,6 +18,8 @@ import LoginContext from "../../contexts/LoginContext";
 import Home from "../Screens/Home/Home";
 import Login from "../Screens/Login/Login";
 import NotFound from "../Screens/NotFound/NotFound";
+import Extension from "../Screens/Extension/Extension";
+import Header from "../Header/Header";
 
 // CSS
 import "./App.css";
@@ -98,12 +101,16 @@ function App() {
       {/* <UserDataContext.Provider value={{ userData, setUserData }}> */}
       <LoginContext.Provider value={{ user, setUser }}>
         <Router>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
+          <Layout>
+            <Header />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/extension" element={<Extension />} />
+              <Route path="/login" element={<Login />} />
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Layout>
         </Router>
       </LoginContext.Provider>
       {/* </UserDataContext.Provider> */}
