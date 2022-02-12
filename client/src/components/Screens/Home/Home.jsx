@@ -31,7 +31,9 @@ function Home() {
   }, [weeklyDrinks]);
 
   useEffect(() => {
-    const weekAgo = new Date(new Date().getTime() - DAY_MILLISECONDS * 7);
+    const weekAgo = new Date(
+      new Date(new Date().getTime() - DAY_MILLISECONDS * 6).toDateString()
+    );
     const weekDates = [...Array(7).keys()]
       .map((num) => new Date(new Date().getTime() - DAY_MILLISECONDS * num))
       .map((date) => date.toLocaleDateString("en-GB"))
@@ -43,7 +45,7 @@ function Home() {
     user?.uid &&
       setWeeklyDrinks(
         user.drinkHistory
-          .filter(({ timestamp }) => new Date(timestamp) > weekAgo)
+          .filter(({ timestamp }) => new Date(timestamp) >= weekAgo)
           .reduce((obj, drink) => {
             const date = new Date(drink.timestamp);
             obj[date.toLocaleDateString("en-GB")] = [

@@ -49,9 +49,10 @@ function Extension() {
         <Divider orientation="left">Usage</Divider>
         <p>
           Installing this extension gives you a quick way to navigate to this
-          site from anywhere with 2 clicks, on the extension and link inside.
+          site from anywhere with 2 clicks, one on the extension and a second on
+          the link inside.
           <br />
-          It also give you hourly notification to drink more, so you won't
+          It also give you hourly notifications to drink more, so you won't
           forget to fill your daily goals.
         </p>
       </Content>
