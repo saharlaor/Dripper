@@ -8,7 +8,7 @@ const router = require("./routes/router");
 
 // Constants
 require("dotenv").config();
-const PORT = process.env.PORT || 5555;
+const PORT = process.env.PORT || 9000;
 const PUBLIC_PATH = path.join(__dirname, "../client/build");
 
 const app = express();

@@ -59,7 +59,7 @@ async function createUser(req, res) {
       throw { code: 404, message: "User Not Created" };
     }
 
-    res.status(201).send(data);
+    res.status(201).send(user);
   } catch ({ code, message }) {
     res.status(code).send(message);
   }
